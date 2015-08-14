@@ -15,9 +15,10 @@ namespace SMCLoan
         public DateTime LastPayDate { get; set; }
 
         public Bank PreviousOwner { get; set; }
+        public List<Payment> Payments { get; set; }
 
         public Loan() //ctor tab tab
-        {
+        : this(0,0,null,new DateTime()){
             //
         }
         public Loan(decimal principal, decimal outstanding, Bank previousOwner, DateTime lastPayDate)
@@ -26,6 +27,8 @@ namespace SMCLoan
             this.Outstanding = outstanding;
             this.PreviousOwner = previousOwner;
             this.LastPayDate = lastPayDate;
+
+            Payments = new List<Payment>();
         }
 
         public Payment Pay(DateTime date, decimal amount)
@@ -59,6 +62,9 @@ namespace SMCLoan
 
             this.LastPayDate = date;
             this.Outstanding = payment.Outstanding;
+
+            this.Payments.Add(payment);
+
             return payment;
             //throw new NotImplementedException();
         }
